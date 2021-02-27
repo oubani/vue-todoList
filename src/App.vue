@@ -1,58 +1,74 @@
 <template>
   <div>
     <Header />
+    <AddTodo v-on:addTodo="addTodo" />
     <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
-    
   </div>
 </template>
 
 <script>
 import Todos from './components/Todos';
-import Header from './components/layout/Header'
+import Header from './components/layout/Header';
+import AddTodo from './components/AddTodo';
 
 export default {
   name: 'App',
   components: {
-  Todos,
-  Header
+    Todos,
+    Header,
+    AddTodo,
   },
-  data(){
+  data() {
     return {
-      todos:[
-        { 
+      todos: [
+        {
           id:1,
-          title:"Learn graphql",
-          completed:false
-         },
-        { 
+          title:'hello',
+          compelted:false
+        },{
           id:2,
-          title:"Learn React",
-          completed:false
-         },
-        { 
-          id:3,
-          title:"Build portfolio",
-          completed:true
-         }
-      ]
+          title:'google',
+          compelted:false
+        }
+      ],
     };
   },
-  methods: {
-    deleteTodo(id){
-    this.todos= this.todos.filter(todo=>todo.id!==id)
+  _methods: {
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
+    },
+    addTodo(newTodo) {
+      console.log('clicked in parent');
+      this.todos = [...this.todos, newTodo];
+    },
+    // created() {
+    //   fetch('https://jsonplaceholder.typicode.com/todos')
+    //     .then((res) => (this.todos = res.data))
+    //     .catch((e) => console.log('something is wrong error :<  ' + e));
+    // },
   },
-  }
 };
 </script>
 
 <style>
-  *{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #666;
+}
 </style>
