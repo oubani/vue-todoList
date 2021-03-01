@@ -1,74 +1,109 @@
 <template>
-  <div>
-    <Header />
-    <AddTodo v-on:addTodo="addTodo" />
-    <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo" />
+  <div class="container">
+    <Header title="Task Tracker" :deleteTask="deleteTask" />
+    <Tasks
+      @delete-task="deleteTask"
+      @toggle-reminder="toggleReminder"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
 <script>
-import Todos from './components/Todos';
-import Header from './components/layout/Header';
-import AddTodo from './components/AddTodo';
-
+import Header from './components/Header';
+import Tasks from './components/Tasks';
 export default {
   name: 'App',
   components: {
-    Todos,
     Header,
-    AddTodo,
+    Tasks,
   },
   data() {
     return {
-      todos: [
-        {
-          id:1,
-          title:'hello',
-          compelted:false
-        },{
-          id:2,
-          title:'google',
-          compelted:false
-        }
-      ],
+      tasks: [],
     };
   },
-  _methods: {
-    deleteTodo(id) {
-      this.todos = this.todos.filter((todo) => todo.id !== id);
+  methods: {
+    deleteTask(id) {
+      if (confirm('are you sure?'))
+        this.tasks = this.tasks.filter((task) => task.id !== id);
     },
-    addTodo(newTodo) {
-      console.log('clicked in parent');
-      this.todos = [...this.todos, newTodo];
+    toggleReminder(id) {
+      // console.log(id);
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
-    // created() {
-    //   fetch('https://jsonplaceholder.typicode.com/todos')
-    //     .then((res) => (this.todos = res.data))
-    //     .catch((e) => console.log('something is wrong error :<  ' + e));
-    // },
+    addTask(task) {
+      // console.log();
+      // this.tasks = [...this.tasks, task];
+    },
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: 'Start Graphql',
+        day: 'March 1st at 2:30pm',
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: 'Build portfolio',
+        day: 'March 2st at 2:30pm',
+        reminder: false,
+      },
+      {
+        id: 3,
+        text: 'get job',
+        day: 'March 2st at 2:32pm',
+        reminder: true,
+      },
+    ];
   },
 };
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.4;
+  font-family: 'Poppins', sans-serif;
+}
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
 }
 .btn {
   display: inline-block;
-  border: none;
-  background: #555;
+  background: #000;
   color: #fff;
-  padding: 7px 20px;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
 }
-.btn:hover {
-  background: #666;
+.btn:focus {
+  outline: none;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-block {
+  display: block;
+  width: 100%;
 }
 </style>
