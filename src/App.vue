@@ -53,28 +53,7 @@ export default {
       this.showAddTask = !this.showAddTask;
     },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Start Graphql',
-        day: 'March 1st at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: 'Build portfolio',
-        day: 'March 2st at 2:30pm',
-        reminder: false,
-      },
-      {
-        id: 3,
-        text: 'get job',
-        day: 'March 2st at 2:32pm',
-        reminder: true,
-      },
-    ];
-  },
+  created() {},
 };
 </script>
 

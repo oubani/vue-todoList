@@ -1,0 +1,21 @@
+{
+    "tasks": [{
+        "id": 1,
+        "text": "Start Graphql",
+        "day": "March 1st at 2:30pm",
+        "reminder": true
+      },
+      {
+        "id": 2,
+        "text": "Build portfolio",
+        "day": "March 2st at 2:30pm",
+        "reminder": false
+      },
+      {
+        "id": 3,
+        "text": "share projects",
+        "day": "March 2st at 2:32pm",
+        "reminder": true
+      }
+    ]
+}
